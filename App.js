@@ -14,7 +14,7 @@ function HomeScreen({ navigation }) {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Details", {
-            ...item,
+            ...item, // spreading the object
           });
         }}
       >
@@ -31,7 +31,7 @@ function HomeScreen({ navigation }) {
         blue: Math.floor(Math.random() * 256),
         id: `${colorArray.length}`,
       },
-      ...colorArray,
+      ...colorArray, // spreading the array
     ]);
     console.log(colorArray);
   }
@@ -50,13 +50,21 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ route }) {
+  // destructuring
   const { red, green, blue } = route.params;
 
   return (
-    <View style={styles.container}>
-      <Text>{red}</Text>
-      <Text>{green}</Text>
-      <Text>{blue}</Text>
+    <View
+      style={[
+        styles.detailsContainer,
+        {
+          backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+        },
+      ]}
+    >
+      <Text style={styles.detailsText}>Red: {red}</Text>
+      <Text style={styles.detailsText}>Green: {green}</Text>
+      <Text style={styles.detailsText}>Blue: {blue}</Text>
     </View>
   );
 }
@@ -78,5 +86,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  detailsContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  detailsText: {
+    fontSize: 30,
   },
 });
