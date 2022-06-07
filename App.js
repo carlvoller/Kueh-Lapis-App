@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import BlockRGB from "./components/BlockRGB";
@@ -8,6 +8,12 @@ import { FlatList } from "react-native-gesture-handler";
 
 function HomeScreen({ navigation }) {
   const [colorArray, setColorArray] = useState([]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={addColor} title="Add colour" />,
+    });
+  });
 
   function renderItem({ item }) {
     return (
@@ -38,12 +44,12 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{ height: 40, justifyContent: "center" }}
         onPress={addColor}
       >
         <Text>Add colour</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <FlatList style={styles.list} data={colorArray} renderItem={renderItem} />
     </View>
   );
