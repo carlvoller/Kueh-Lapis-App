@@ -13,7 +13,9 @@ function HomeScreen({ navigation }) {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Details");
+          navigation.navigate("Details", {
+            ...item,
+          });
         }}
       >
         <BlockRGB red={item.red} green={item.green} blue={item.blue} />
@@ -47,10 +49,14 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen({ route }) {
+  const { red, green, blue } = route.params;
+
   return (
     <View style={styles.container}>
-      <Text>Details Screen</Text>
+      <Text>{red}</Text>
+      <Text>{green}</Text>
+      <Text>{blue}</Text>
     </View>
   );
 }
